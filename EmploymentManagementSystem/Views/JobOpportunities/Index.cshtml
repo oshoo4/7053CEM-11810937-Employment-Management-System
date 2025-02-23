@@ -1,0 +1,123 @@
+@* View (Model-View-Controller) - File: Index.cshtml *@
+@model IEnumerable<EmploymentManagementSystem.Models.JobOpportunity>
+
+@{
+    ViewData["Title"] = "Job Opportunities";
+    var locations = Model.Select(j => j.Location).Distinct().ToList();
+}
+
+<h1 class="mb-3">Job Opportunities</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-group row">
+        <div class="col-md-4 mb-3">
+            <label for="searchTerm" class="form-label">Search by Title:</label>
+            <input type="text" name="searchTerm" id="searchTerm" value="@ViewBag.CurrentFilter" class="form-control" />
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="company" class="form-label">Company:</label>
+            <select name="company" id="company"
+                asp-items="@(new SelectList(ViewBag.Companies, "Value", "Text", ViewBag.CompanyFilter))"
+                class="form-select">
+                <option value="">All Companies</option>
+            </select>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="location" class="form-label">Location:</label>
+            <select name="location" id="location" asp-items="@(new SelectList(locations, ViewBag.LocationFilter))"
+                class="form-select">
+                <option value="">All Locations</option>
+            </select>
+        </div>
+        <div class="col-md-2 mb-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Clear</a>
+        </div>
+    </div>
+</form>
+
+@if (Model.Any())
+{
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortBy="title"
+                        asp-route-sortOrder="@(ViewBag.SortBy == "title" ? (ViewBag.SortOrder == "asc" ? "desc" : "asc") : "asc")">
+                        @Html.DisplayNameFor(model => model.Title)
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortBy="company"
+                        asp-route-sortOrder="@(ViewBag.SortBy == "company" ? (ViewBag.SortOrder == "asc" ? "desc" : "asc") : "asc")">
+                        @Html.DisplayNameFor(model => model.CompanyObject.Name)
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortBy="location"
+                        asp-route-sortOrder="@(ViewBag.SortBy == "location" ? (ViewBag.SortOrder == "asc" ? "desc" : "asc") : "asc")">
+                        @Html.DisplayNameFor(model => model.Location)
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortBy="salary"
+                        asp-route-sortOrder="@(ViewBag.SortBy == "salary" ? (ViewBag.SortOrder == "asc" ? "desc" : "asc") : "asc")">
+                        @Html.DisplayNameFor(model => model.Salary)
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortBy="closingDate"
+                        asp-route-sortOrder="@(ViewBag.SortBy == "closingDate" ? (ViewBag.SortOrder == "asc" ? "desc" : "asc") : "asc")">
+                        @Html.DisplayNameFor(model => model.ClosingDate)
+                    </a>
+                </th>
+                <th class="text-center">
+                    <a asp-action="Index" asp-route-sortBy="isActive"
+                        asp-route-sortOrder="@(ViewBag.SortBy == "isActive" ? (ViewBag.SortOrder == "asc" ? "desc" : "asc") : "asc")">
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyObject.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Salary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClosingDate, "{0:yyyy-MM-dd}")
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"
+                            onclick="return confirm('Are you sure you want to delete this job opportunity?')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No job opportunities found matching your criteria.</p>
+}

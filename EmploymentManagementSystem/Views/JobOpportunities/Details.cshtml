@@ -1,0 +1,39 @@
+@model EmploymentManagementSystem.Models.JobOpportunity
+
+@{
+    ViewData["Title"] = "Job Opportunity Details";
+}
+
+<h1 class="mb-3">Job Opportunity Details</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Title)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Title)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Description)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Description)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Company)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.CompanyObject.Name)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Location)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Location)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Salary)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Salary)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.PostedDate)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.PostedDate, "{0:yyyy-MM-dd}")</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ClosingDate)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.ClosingDate, "{0:yyyy-MM-dd}")</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.IsActive)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.IsActive)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
