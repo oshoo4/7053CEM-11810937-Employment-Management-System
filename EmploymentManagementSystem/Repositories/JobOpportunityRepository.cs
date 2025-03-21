@@ -15,6 +15,14 @@ namespace EmploymentManagementSystem.Repositories
             _context = context;
         }
 
+        // CREATOR(GRASP Patterns)
+        public async Task<JobOpportunity> AddJobOpportunityAsync(JobOpportunity jobOpportunity)
+        {
+            _context.JobOpportunities.Add(jobOpportunity);
+            await _context.SaveChangesAsync();
+            return jobOpportunity;
+        }
+
         public async Task<List<JobOpportunity>> GetAllJobOpportunitiesAsync()
         {
             return await _context.JobOpportunities.Include(j => j.CompanyObject).ToListAsync();
@@ -25,14 +33,6 @@ namespace EmploymentManagementSystem.Repositories
             return await _context
                 .JobOpportunities.Include(j => j.CompanyObject)
                 .FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        // CREATOR(GRASP Patterns)
-        public async Task<JobOpportunity> AddJobOpportunityAsync(JobOpportunity jobOpportunity)
-        {
-            _context.JobOpportunities.Add(jobOpportunity);
-            await _context.SaveChangesAsync();
-            return jobOpportunity;
         }
 
         public async Task UpdateJobOpportunityAsync(JobOpportunity jobOpportunity)

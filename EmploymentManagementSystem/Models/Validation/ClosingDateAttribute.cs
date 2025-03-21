@@ -4,6 +4,7 @@ using EmploymentManagementSystem.ViewModels;
 namespace EmploymentManagementSystem.Models.Validation
 {
     // INHERITANCE (Object-Oriented Programming)
+    // HIGH COHESION(GRASP Patterns)
     public class ClosingDateAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(

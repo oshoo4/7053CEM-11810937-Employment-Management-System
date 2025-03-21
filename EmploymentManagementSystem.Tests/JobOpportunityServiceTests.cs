@@ -135,7 +135,7 @@ namespace EmploymentManagementSystem.Tests
             {
                 Id = 1,
                 Title = "Updated Job",
-                Company = "Test Company", // Set the Company string directly
+                Company = "Test Company",
                 Description = "A valid description",
                 Location = "Some Location",
                 Salary = 60000,

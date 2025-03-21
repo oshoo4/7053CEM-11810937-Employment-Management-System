@@ -17,6 +17,12 @@ namespace EmploymentManagementSystem.Services
             _jobOpportunityRepository = jobOpportunityRepository;
         }
 
+        public async Task<JobOpportunity> CreateJobOpportunityAsync(JobOpportunity jobOpportunity)
+        {
+            ValidateJobOpportunity(jobOpportunity);
+            return await _jobOpportunityRepository.AddJobOpportunityAsync(jobOpportunity);
+        }
+
         // HIGH COHESION(GRASP Patterns)
         public async Task<List<JobOpportunity>> GetAllJobOpportunitiesAsync()
         {
@@ -26,12 +32,6 @@ namespace EmploymentManagementSystem.Services
         public async Task<JobOpportunity> GetJobOpportunityByIdAsync(int id)
         {
             return await _jobOpportunityRepository.GetJobOpportunityByIdAsync(id);
-        }
-
-        public async Task<JobOpportunity> CreateJobOpportunityAsync(JobOpportunity jobOpportunity)
-        {
-            ValidateJobOpportunity(jobOpportunity);
-            return await _jobOpportunityRepository.AddJobOpportunityAsync(jobOpportunity);
         }
 
         public async Task UpdateJobOpportunityAsync(JobOpportunity jobOpportunity)

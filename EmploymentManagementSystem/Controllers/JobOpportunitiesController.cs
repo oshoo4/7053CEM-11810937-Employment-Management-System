@@ -153,7 +153,7 @@ namespace EmploymentManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, EditJobOpportunityViewModel viewModel) // Use ViewModel
+        public async Task<IActionResult> Edit(int id, EditJobOpportunityViewModel viewModel)
         {
             if (id != viewModel.Id)
             {
